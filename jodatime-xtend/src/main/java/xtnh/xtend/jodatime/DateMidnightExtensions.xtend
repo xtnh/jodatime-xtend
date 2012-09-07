@@ -9,52 +9,60 @@ import org.joda.time.Period
 
 class DateMidnightExtensions {
 	
-	def Days tage(int tage) {
-		Days::days(tage)
+	def static Days days(int days) {
+		Days::days(days) 
 	}
 
-	def Months monate(int monate) {
-		Months::months(monate)
+	def static Months months(int months) {
+		Months::months(months)
 	}
 	
-	def Years jahre(int jahre) {
-		Years::years(jahre)
+	def static Years years(int years) {
+		Years::years(years)
 	}
 	
-	def static DateMidnight operator_plus(DateMidnight jetzt, ReadablePeriod monate) {
-		jetzt.plus(monate)
+	def static Period operator_plus(ReadablePeriod p1, ReadablePeriod p2) {
+		p1.toPeriod.plus(p2).toPeriod
 	}
 	
-	def static DateMidnight operator_minus(DateMidnight jetzt, ReadablePeriod monate) {
-		jetzt.minus(monate)
+	def static Period operator_minus(ReadablePeriod p1, ReadablePeriod p2) {
+		p1.toPeriod.minus(p2).toPeriod
 	}
 	
-	def static Period operator_minus(DateMidnight zeitpunkt1, DateMidnight zeitpunkt2) {
-		new Period(zeitpunkt1, zeitpunkt2)
+	def static DateMidnight operator_plus(DateMidnight date, ReadablePeriod period) {
+		date.plus(period)
 	}
 	
-	def static boolean operator_greaterThan(DateMidnight zeitpunkt1, DateMidnight zeitpunkt2) {
-		zeitpunkt1.isAfter(zeitpunkt2)
+	def static DateMidnight operator_minus(DateMidnight date, ReadablePeriod period) {
+		date.minus(period)
 	}
 	
-	def static boolean operator_lessThan(DateMidnight zeitpunkt1, DateMidnight zeitpunkt2) {
-		zeitpunkt1.isBefore(zeitpunkt2)
+	def static Period operator_minus(DateMidnight date1, DateMidnight date2) {
+		new Period(date1, date2)
 	}
 	
-	def static boolean operator_greaterEqualsThan(DateMidnight zeitpunkt1, DateMidnight zeitpunkt2) {
-		zeitpunkt1.isAfter(zeitpunkt2) || zeitpunkt1.isEqual(zeitpunkt2)  
+	def static boolean operator_greaterThan(DateMidnight date1, DateMidnight date2) {
+		date1.isAfter(date2)
 	}
 	
-	def static boolean operator_lessEqualsThan(DateMidnight zeitpunkt1, DateMidnight zeitpunkt2) {
-		zeitpunkt1.isBefore(zeitpunkt2) || zeitpunkt1.isEqual(zeitpunkt2)
+	def static boolean operator_lessThan(DateMidnight date1, DateMidnight date2) {
+		date1.isBefore(date2)
 	}
 	
-	def static boolean operator_equals(DateMidnight zeitpunkt1, DateMidnight zeitpunkt2) {
-		zeitpunkt1.isEqual(zeitpunkt2)
+	def static boolean operator_greaterEqualsThan(DateMidnight date1, DateMidnight date2) {
+		date1.isAfter(date2) || date1.isEqual(date2)  
 	}
 	
-	def static boolean operator_notEquals(DateMidnight zeitpunkt1, DateMidnight zeitpunkt2) {
-		!zeitpunkt1.isEqual(zeitpunkt2)
+	def static boolean operator_lessEqualsThan(DateMidnight date1, DateMidnight date2) {
+		date1.isBefore(date2) || date1.isEqual(date2)
+	}
+	
+	def static boolean operator_equals(DateMidnight date1, DateMidnight date2) {
+		date1.isEqual(date2)
+	}
+	
+	def static boolean operator_notEquals(DateMidnight date1, DateMidnight date2) {
+		!date1.isEqual(date2)
 	}
 	
 }
