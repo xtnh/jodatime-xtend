@@ -7,10 +7,18 @@ import org.joda.time.ReadablePeriod
 import org.joda.time.Years
 import org.joda.time.Period
 
+/**
+ * Extension library for DateMidnight.
+ */
 class DateMidnightExtensions {
 	
 	def static Days days(int days) {
 		Days::days(days) 
+	}
+
+	def static Days weeks(int weeks) {
+		val oneWeek = days(7)
+		oneWeek.multipliedBy(weeks)
 	}
 
 	def static Months months(int months) {
@@ -21,14 +29,6 @@ class DateMidnightExtensions {
 		Years::years(years)
 	}
 	
-	def static Period operator_plus(ReadablePeriod p1, ReadablePeriod p2) {
-		p1.toPeriod.plus(p2).toPeriod
-	}
-	
-	def static Period operator_minus(ReadablePeriod p1, ReadablePeriod p2) {
-		p1.toPeriod.minus(p2).toPeriod
-	}
-	
 	def static DateMidnight operator_plus(DateMidnight date, ReadablePeriod period) {
 		date.plus(period)
 	}
@@ -37,8 +37,24 @@ class DateMidnightExtensions {
 		date.minus(period)
 	}
 	
+	def static Period operator_plus(ReadablePeriod p1, ReadablePeriod p2) {
+		p1.toPeriod.plus(p2).toPeriod
+	}
+	
+	def static Period operator_minus(ReadablePeriod p1, ReadablePeriod p2) {
+		p1.toPeriod.minus(p2).toPeriod
+	}
+	
 	def static Period operator_minus(DateMidnight date1, DateMidnight date2) {
 		new Period(date1, date2)
+	}
+	
+	def static boolean operator_equals(DateMidnight date1, DateMidnight date2) {
+		date1.isEqual(date2)
+	}
+	
+	def static boolean operator_notEquals(DateMidnight date1, DateMidnight date2) {
+		!date1.isEqual(date2)
 	}
 	
 	def static boolean operator_greaterThan(DateMidnight date1, DateMidnight date2) {
@@ -57,12 +73,8 @@ class DateMidnightExtensions {
 		date1.isBefore(date2) || date1.isEqual(date2)
 	}
 	
-	def static boolean operator_equals(DateMidnight date1, DateMidnight date2) {
-		date1.isEqual(date2)
-	}
-	
-	def static boolean operator_notEquals(DateMidnight date1, DateMidnight date2) {
-		!date1.isEqual(date2)
+	def static operator_upTo(DateMidnight date1, DateMidnight date2) {
+		new DateMidnightRange(date1, date2)
 	}
 	
 }
